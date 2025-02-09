@@ -1,0 +1,22 @@
+{
+    "platform": "laravel",
+    "app": "northland-backend",
+    "laravel": {
+        "phpVersion": "8.2",
+        "configCache": true,
+        "routeCache": true
+    },
+    "disks": [
+        {
+            "name": "disk",
+            "mountTo": "storage"
+        }
+    ],
+    "args": [
+        "php artisan octane:start --server=swoole --host=0.0.0.0 --port=80"
+    ],
+    "cron": [
+        "0 3 * * * cd $ROOT && php artisan sitemap:generate",
+        "13 * * * * cd $ROOT && php artisan ecommerce:maintenance"
+    ]
+}
