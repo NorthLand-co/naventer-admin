@@ -35,7 +35,7 @@ class DetailHandler extends Handlers
             ->allowedFilters($model::$allowedFilters ?? []);
 
         // Apply includes only if they are not empty
-        if (!empty($model::$allowedIncludes)) {
+        if (! empty($model::$allowedIncludes)) {
             $query->allowedIncludes($model::$allowedIncludes);
         }
 

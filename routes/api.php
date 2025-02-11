@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Ecommerce\CouponController;
 use App\Http\Controllers\Api\Ecommerce\ProductController;
 use App\Http\Controllers\Api\Ecommerce\ShipmentController;
 use App\Http\Controllers\Api\Locations\LocationController;
+use App\Http\Controllers\Api\RecommendationController;
 use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\SubscriptionController;
 use App\Http\Controllers\Api\User\PaymentController;
@@ -63,6 +64,11 @@ Route::middleware('api')->group(function () {
     Route::group(['prefix' => 'locations'], function () {
         Route::get('/', [LocationController::class, 'index']);
         Route::get('/{location}', [LocationController::class, 'show']);
+    });
+
+    // Recommendation
+    Route::group(['prefix' => 'recommendations'], function () {
+        Route::post('/result', [RecommendationController::class, 'suggestion']);
     });
 
     // Search

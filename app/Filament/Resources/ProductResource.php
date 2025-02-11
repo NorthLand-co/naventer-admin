@@ -6,6 +6,7 @@ use AmidEsfahani\FilamentTinyEditor\TinyEditor;
 use App\Enums\ProductType;
 use App\Filament\Resources\ProductResource\Api\Transformers\ProductTransformer;
 use App\Filament\Resources\ProductResource\Pages;
+use App\Filament\Resources\ProductResource\RelationManagers\AnswersRelationManager;
 use App\Filament\Resources\ProductResource\RelationManagers\AttributesRelationManager;
 use App\Filament\Resources\ProductResource\RelationManagers\FaqRelationManager;
 use App\Models\Category;
@@ -275,6 +276,7 @@ class ProductResource extends Resource
         return [
             AttributesRelationManager::class,
             FaqRelationManager::class,
+            AnswersRelationManager::class,
         ];
     }
 

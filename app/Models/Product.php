@@ -112,6 +112,11 @@ class Product extends Model implements HasMedia
         return $this->morphMany(FAQ::class, 'faqable');
     }
 
+    public function answers(): BelongsToMany
+    {
+        return $this->belongsToMany(RecommendationAnswer::class, 'recommendation_product_answers');
+    }
+
     // Getters
     public function getThumbAttribute()
     {

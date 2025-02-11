@@ -23,13 +23,13 @@ class ProductTransformer extends JsonResource
 
         // Base transformation array
         $data = [
+            'id' => $this->id,
             'type' => $this->type,
             'name' => $this->name,
             'slug' => $this->slug,
             'sku' => $this->sku,
             'color' => $this->color,
             'about' => $this->about,
-            'description' => $this->description,
             'details' => $this->details,
             'is_activated' => $this->is_activated,
             'is_in_stock' => $this->is_in_stock,
@@ -69,6 +69,10 @@ class ProductTransformer extends JsonResource
      */
     private function addOptionalIncludes(array &$data, array $includes): void
     {
+        if (in_array('description', $includes)) {
+            $data['description'] = $this->description;
+        }
+
         if (in_array('gallery', $includes)) {
             $data['gallery'] = $this->getMedia('gallery');
         }
