@@ -68,6 +68,7 @@ Route::middleware('api')->group(function () {
 
     // Recommendation
     Route::group(['prefix' => 'recommendations'], function () {
+        Route::get('/questions', [RecommendationController::class, 'getQuestion']);
         Route::post('/result', [RecommendationController::class, 'suggestion']);
     });
 

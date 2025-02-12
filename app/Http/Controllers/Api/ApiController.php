@@ -17,4 +17,11 @@ class ApiController extends Controller
             'error' => $message,
         ], $statusCode);
     }
+
+    protected function dataResponse($data, int $statusCode): JsonResponse
+    {
+        return response()->json([
+            'data' => $data,
+        ], $statusCode);
+    }
 }

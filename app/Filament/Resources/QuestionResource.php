@@ -10,6 +10,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
 class QuestionResource extends Resource
@@ -86,7 +87,10 @@ class QuestionResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('title'),
+                TextColumn::make('description')
+                    ->limit(200),
+                TextColumn::make('order')
             ])
             ->filters([
                 //

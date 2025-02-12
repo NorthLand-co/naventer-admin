@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class RecommendationQuestion extends Model
 {
@@ -15,8 +15,8 @@ class RecommendationQuestion extends Model
     /**
      * Get the answers associated with the question.
      */
-    public function question(): BelongsTo
+    public function answers(): HasMany
     {
-        return $this->belongsTo(RecommendationQuestion::class, 'recommendation_question_id');
+        return $this->hasMany(RecommendationAnswer::class);
     }
 }

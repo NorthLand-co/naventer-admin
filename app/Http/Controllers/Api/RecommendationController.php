@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Filament\Resources\ProductResource\Api\Transformers\ProductTransformer;
-use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\Recommendation\QuestionResource;
 use App\Models\Product;
 use App\Models\RecommendationQuestion;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class RecommendationController extends Controller
+class RecommendationController extends ApiController
 {
     /**
      * Suggest products based on user answers.
@@ -64,6 +64,17 @@ class RecommendationController extends Controller
             'scores' => $scores,
             'products' => ProductTransformer::collection($recommendedProducts),
         ], Response::HTTP_OK);
+    }
+
+    /**
+     * Suggest products based on user answers.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getQuestion()
+    {
+        $questions = RecommendationQuestion::all()->load(['answers']);
+        return $this->dataResponse(QuestionResource::collection($questions), Response::HTTP_OK);
     }
 
     /**

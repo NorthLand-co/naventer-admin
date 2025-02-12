@@ -45,7 +45,7 @@ return new class extends Migration
             $table->bigInteger('max_stock_alert')->nullable()->unsigned();
 
             // Customize look
-            $table->string('color')->nullable();
+            $table->string('color', 512)->nullable();
 
             $table->softDeletes();
             $table->timestamps();
