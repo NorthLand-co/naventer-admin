@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Ecommerce\Order;
 
 use App\Enums\OrderStatus;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Ecommerce\Order\StoreUserOrderRequest;
 use App\Http\Requests\Ecommerce\Order\UpdateUserOrderRequest;
 use App\Http\Resources\Ecommerce\Order\UserOrderResource;
@@ -17,9 +17,10 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Spatie\QueryBuilder\QueryBuilder;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserOrderController extends Controller
+class UserOrderController extends ApiController
 {
     protected $cartService;
 
@@ -45,7 +46,13 @@ class UserOrderController extends Controller
             abort(Response::HTTP_UNAUTHORIZED);
         }
 
-        return UserOrderResource::collection($user->orders)
+        $orders = QueryBuilder::for(UserOrder::class)
+            ->where('user_id', $user->id)
+            ->allowedFilters(['status', 'created_at'])
+            ->allowedSorts(['created_at', 'price'])
+            ->get();
+
+        return UserOrderResource::collection($orders)
             ->response()
             ->setStatusCode(Response::HTTP_ACCEPTED);
     }
@@ -217,6 +224,25 @@ class UserOrderController extends Controller
     public function destroy(UserOrder $order)
     {
         //
+    }
+
+    /**
+     * Get count for each status of order for users
+     */
+    public function fullCount()
+    {
+        $user = Auth::user();
+
+        if (! $user) {
+            return response()->json(['message' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        $orderCounts = UserOrder::where('user_id', $user->id)
+            ->selectRaw('status, COUNT(*) as count')
+            ->groupBy('status')
+            ->pluck('count', 'status');
+
+        return $this->dataResponse($orderCounts, Response::HTTP_OK);
     }
 
     /**

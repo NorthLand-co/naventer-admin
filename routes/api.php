@@ -26,6 +26,7 @@ Route::middleware('api')->group(function () {
     Route::prefix('auth')->name('auth.')->group(function () {
         Route::post('authenticate', [AuthenticationController::class, 'authenticate'])->name('authenticate');
         Route::post('register', [AuthenticationController::class, 'register'])->name('register');
+        Route::post('change-password', [AuthenticationController::class, 'changePassword'])->name('change.password');
         Route::post('login', [AuthenticationController::class, 'login'])->name('login');
         Route::post('otp', [AuthenticationController::class, 'otp'])->name('otp');
         Route::get('me', [AuthenticationController::class, 'me'])->name('me');
@@ -111,8 +112,11 @@ Route::middleware(['auth:sanctum', EnsureFrontendRequestsAreStateful::class])->g
         Route::get('/methods', [ShipmentController::class, 'methods']);
     });
 
-    // get order by order number
-    Route::get('orders/number/{orderNumber}', [UserOrderController::class, 'showByOrderNumber']);
+    // Orders route
+    Route::prefix('orders')->group(function () {
+        Route::get('/number/{orderNumber}', [UserOrderController::class, 'showByOrderNumber']);
+        Route::get('/full-count', [UserOrderController::class, 'fullCount']);
+    });
 
     // Coupon Routes
     Route::prefix('coupons')->group(function () {

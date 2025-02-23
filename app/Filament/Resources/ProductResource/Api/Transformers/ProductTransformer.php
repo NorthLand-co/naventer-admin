@@ -73,6 +73,10 @@ class ProductTransformer extends JsonResource
             $data['description'] = $this->description;
         }
 
+        if (in_array('tags', $includes)) {
+            $data['tags'] = $this->tags;
+        }
+
         if (in_array('gallery', $includes)) {
             $data['gallery'] = $this->getMedia('gallery');
         }

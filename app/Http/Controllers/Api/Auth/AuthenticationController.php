@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Events\UserLoggedIn;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\ChangePasswordRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\User\UserResource;
@@ -64,6 +65,19 @@ class AuthenticationController extends Controller
         $request->session()->regenerate();
 
         return response()->json(['message' => 'Login successfully'], Response::HTTP_OK);
+    }
+
+    /**
+     * Handle the User changing password requests.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function changePassword(ChangePasswordRequest $request)
+    {
+
+        $request->changePassword();
+
+        return response()->json(['message' => 'Password changed successfully'], Response::HTTP_OK);
     }
 
     /**

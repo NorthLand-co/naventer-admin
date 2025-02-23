@@ -77,19 +77,13 @@ class CategoryController extends ApiController
                 ->with(['media', 'category', 'attributes', 'comments.user', 'comments.replies', 'seo', 'prices.specialPrices'])
                 ->whereIn('category_id', $categoryIds)
                 ->allowedFields(['id', 'name', 'price', 'description', 'category_id'])
-                ->allowedSorts([
-                    'name',
-                    'is_in_stock',
-                    'created_at',
-                    'order',
-                    AllowedSort::custom('lowest_price', new LowestPriceSort),
-                ])
+                ->allowedSorts(['name', 'is_in_stock', 'created_at', 'order', AllowedSort::custom('lowest_price', new LowestPriceSort)])
                 ->allowedFilters([
                     AllowedFilter::exact('category_id'),
                     AllowedFilter::partial('name'),
                     AllowedFilter::partial('description'),
                 ])
-                ->allowedIncludes(['gallery']);
+                ->allowedIncludes(['gallery', 'tags']);
 
             // Paginate the results
             $paginator = $query->paginate($perPage, ['*'], 'page', $currentPage);

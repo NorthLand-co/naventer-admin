@@ -20,7 +20,7 @@ class QuestionResource extends JsonResource
             'description' => $this->description,
             'icon' => $this->icon,
             'order' => $this->order,
-            'answers' => AnswerResource::collection($this->answers)
+            'answers' => AnswerResource::collection($this->answers),
         ];
     }
 }

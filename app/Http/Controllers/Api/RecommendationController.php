@@ -74,6 +74,7 @@ class RecommendationController extends ApiController
     public function getQuestion()
     {
         $questions = RecommendationQuestion::all()->load(['answers']);
+
         return $this->dataResponse(QuestionResource::collection($questions), Response::HTTP_OK);
     }
 

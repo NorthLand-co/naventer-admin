@@ -39,7 +39,7 @@ class Product extends Model implements HasMedia
 
     // protected $appends = ['thumb'];
 
-    public static array $allowedIncludes = ['prices', 'category'];
+    public static array $allowedIncludes = ['prices', 'category', 'tags'];
 
     public static array $allowedFilters = ['name', 'category.slug'];
 

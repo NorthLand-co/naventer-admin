@@ -90,7 +90,7 @@ class QuestionResource extends Resource
                 TextColumn::make('title'),
                 TextColumn::make('description')
                     ->limit(200),
-                TextColumn::make('order')
+                TextColumn::make('order'),
             ])
             ->filters([
                 //

@@ -25,7 +25,7 @@ class Category extends Model implements HasMedia
 
     protected $fillable = ['name', 'icon', 'slug', 'parent_category_id', 'order'];
 
-    public static array $allowedIncludes = ['children', 'parent'];
+    public static array $allowedIncludes = ['children', 'parent', 'tags'];
 
     public static array $allowedFilters = ['name', 'slug'];
 
